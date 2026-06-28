@@ -1,0 +1,9 @@
+*.csv
+*.xlsx
+.env
+*.json
+credentials*
+token*
+__pycache__/
+.ipynb_checkpoints/
+.venv/
