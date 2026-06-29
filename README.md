@@ -1,25 +1,31 @@
 # Social Follower Scraper
 
-> **Real-world context.** Built while working in **Business Intelligence at Macfor**, where I developed a Python BI/ETL stack (web scraping + Pandas + Google Cloud Storage + **Looker Studio**) that powered 10 market studies and 25 client diagnostics — cutting diagnosis time by **~25%** and contributing to **+R$2M in new contracts**, with coverage in major outlets (O Globo / UOL). This repository is the **social-data collection** component of that work.
+I built this while working in Business Intelligence at a marketing agency, as the social-data collection piece of a larger Python BI/ETL stack (web scraping, Pandas, Google Cloud Storage and Looker Studio). That stack powered 10 market studies and 25 client diagnostics, cut diagnosis time by about 25%, and contributed to more than R$2M in new contracts. This repository is just the part that collects the social data.
 
-A small, focused scraper that pulls companies' **social-media follower counts** from search-engine results and computes their variation over time — the raw input for competitive social benchmarking.
+The scraper itself is small and focused: it pulls companies' social-media follower counts from search-engine results and computes how those counts change over time. That gives you the raw input for competitive social benchmarking, comparing a brand against its competitors.
 
 ## What it does
-- Resolves a target company's social presence from **search results** (Google → LinkedIn) and extracts the **follower count** with `requests` + `BeautifulSoup`.
-- Tracks **growth/variation** between snapshots to benchmark a brand against competitors.
+
+It resolves a target company's social presence from search results (Google, then LinkedIn) and extracts the follower count using `requests` and `BeautifulSoup`. It then tracks growth and variation between snapshots, so you can see how a brand moves relative to its competitors over time.
 
 ## How it works
-- `coleta.py` / `coleta_seguidores.py` / `coleta_teste.py` — collector variants (search → regex for the "followers" figure).
-- `Coleta_LinkedIn.ipynb` — notebook version, with optional write-out to a Google Sheet.
-- `porcentagens.py` — percentage-variation calculation between collections.
+
+The collection logic lives in a few collector variants, `coleta.py`, `coleta_seguidores.py` and `coleta_teste.py`. Each one runs a search and then applies a regex to pull out the "followers" figure from the results.
+
+There is also a notebook version, `Coleta_LinkedIn.ipynb`, which can optionally write its output to a Google Sheet.
+
+Finally, `porcentagens.py` handles the percentage-variation calculation between two collections.
 
 ## How to run
+
 ```bash
 pip install requests beautifulsoup4 pandas
 # edit the search term to the target company, then:
 python coleta_seguidores.py
 ```
-For the Google Sheet output, set your own Sheet ID and Google credentials — these are kept out of version control via `.gitignore`.
+
+For the Google Sheet output, set your own Sheet ID and Google credentials. These are kept out of version control via `.gitignore`.
 
 ## Stack
-Python · requests · BeautifulSoup · Pandas · Google Sheets API
+
+Python, requests, BeautifulSoup, Pandas, Google Sheets API.
